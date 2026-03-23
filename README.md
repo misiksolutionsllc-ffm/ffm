@@ -1,16 +1,32 @@
-# FFM App
+# Farm Fresh Marketplace
 
-A React application built with Vite and TypeScript.
+A comprehensive farm-to-table marketplace mobile app built with Flutter.
+
+## Features
+
+- **Customer Shopping** — Browse local farm products, add to cart, checkout, and view order history
+- **Driver Delivery Portal** — Accept delivery assignments, navigate routes, update delivery status
+- **Farmer/Merchant Portal** — Manage products, inventory, pricing, and fulfill orders
+- **Real-time Order Tracking** — Live order status updates with map-based tracking
 
 ## Getting Started
 
 ```bash
-npm install
-npm run dev
+flutter pub get
+flutter run
 ```
 
-## Scripts
+## Project Structure
 
-- `npm run dev` — Start development server
-- `npm run build` — Build for production
-- `npm run preview` — Preview production build
+```
+lib/
+├── main.dart                 # App entry point & role selection
+├── models/                   # Data models
+├── providers/                # State management (Provider)
+├── screens/
+│   ├── customer/             # Customer shopping screens
+│   ├── driver/               # Driver delivery screens
+│   └── farmer/               # Farmer/merchant screens
+├── widgets/                  # Reusable widgets
+└── utils/                    # Utilities and constants
+```

@@ -1,0 +1,28 @@
+name: farmfreshapp
+description: A comprehensive farm-to-table marketplace mobile app featuring customer shopping, driver delivery management, and farmer/merchant portal interfaces.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+  google_maps_flutter: ^2.9.0
+  intl: ^0.19.0
+  cached_network_image: ^3.4.1
+  flutter_rating_bar: ^4.0.1
+  uuid: ^4.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

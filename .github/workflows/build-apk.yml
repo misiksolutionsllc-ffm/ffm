@@ -32,21 +32,30 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze code
-        run: flutter analyze --no-fatal-infos --no-fatal-warnings || true
-
       - name: Build APK (release)
-        run: flutter build apk --release 2>&1 | tee build-output.log
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter build apk --release 2>&1 | tee build-output.log
 
-      - name: Upload build log on failure
-        if: failure()
+      - name: List build outputs
+        if: always()
+        run: |
+          echo "=== Build outputs ==="
+          find build -name "*.apk" 2>/dev/null || echo "No APK files found"
+          ls -la build/app/outputs/flutter-apk/ 2>/dev/null || echo "Output dir not found"
+
+      - name: Upload build log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
           path: build-output.log
           retention-days: 7
+          if-no-files-found: ignore
 
       - name: Upload APK artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: farm-fresh-release
@@ -54,6 +63,7 @@ jobs:
           retention-days: 90
 
       - name: Create Release
+        if: success()
         continue-on-error: true
         uses: softprops/action-gh-release@v2
         with:

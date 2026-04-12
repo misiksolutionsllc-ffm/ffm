@@ -6,6 +6,7 @@ import '../../services/ai_service.dart';
 import '../../utils/constants.dart';
 import '../../widgets/order_status_badge.dart';
 import '../../widgets/dashboard_charts.dart';
+import '../agents/agent_hub_screen.dart';
 
 class DriverHomeScreen extends StatelessWidget {
   const DriverHomeScreen({super.key});
@@ -29,6 +30,18 @@ class DriverHomeScreen extends StatelessWidget {
           ),
           backgroundColor: AppColors.primaryDark,
           foregroundColor: Colors.white,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.auto_awesome),
+              tooltip: 'AI Agents',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) =>
+                        const AgentHubScreen(userRole: 'driver')),
+              ),
+            ),
+          ],
           bottom: const TabBar(
             indicatorColor: AppColors.accent,
             labelColor: Colors.white,

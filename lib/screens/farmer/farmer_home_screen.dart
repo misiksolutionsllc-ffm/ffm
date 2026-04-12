@@ -11,6 +11,7 @@ import '../../widgets/dashboard_charts.dart';
 import 'product_management_screen.dart';
 import 'add_product_screen.dart';
 import 'ai_crop_advisor_screen.dart';
+import '../agents/agent_hub_screen.dart';
 
 class FarmerHomeScreen extends StatelessWidget {
   const FarmerHomeScreen({super.key});
@@ -36,6 +37,16 @@ class FarmerHomeScreen extends StatelessWidget {
           backgroundColor: AppColors.primaryDark,
           foregroundColor: Colors.white,
           actions: [
+            IconButton(
+              icon: const Icon(Icons.auto_awesome),
+              tooltip: 'AI Agent Hub',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) =>
+                        const AgentHubScreen(userRole: 'farmer')),
+              ),
+            ),
             IconButton(
               icon: const Icon(Icons.smart_toy),
               tooltip: 'AI Crop Advisor',

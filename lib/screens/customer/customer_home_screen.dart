@@ -8,6 +8,7 @@ import '../../widgets/product_card.dart';
 import 'product_detail_screen.dart';
 import 'cart_screen.dart';
 import 'order_history_screen.dart';
+import '../agents/agent_hub_screen.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
@@ -40,6 +41,16 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.auto_awesome),
+            tooltip: 'AI Agents',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) =>
+                      const AgentHubScreen(userRole: 'customer')),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.history),
             onPressed: () => Navigator.push(

@@ -11,17 +11,14 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   provider: ^6.1.2
-  google_maps_flutter: ^2.9.0
   intl: ^0.19.0
-  cached_network_image: ^3.4.1
-  flutter_rating_bar: ^4.0.1
   uuid: ^4.5.1
-  fl_chart: ^0.69.2
+  fl_chart: ^0.69.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true

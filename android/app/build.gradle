@@ -44,6 +44,11 @@ android {
         versionName = flutterVersionName
     }
 
+    signingConfigs {
+        debug {
+        }
+    }
+
     buildTypes {
         release {
             signingConfig = signingConfigs.debug

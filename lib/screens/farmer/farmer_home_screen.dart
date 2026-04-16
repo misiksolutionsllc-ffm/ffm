@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../../models/order.dart';
 import '../../models/product.dart';
 import '../../providers/product_provider.dart';
 import '../../providers/order_provider.dart';
@@ -102,7 +103,7 @@ class FarmerHomeScreen extends StatelessWidget {
 // ============================================================
 class _DashboardTab extends StatelessWidget {
   final List<Product> products;
-  final List<dynamic> orders;
+  final List<Order> orders;
   final double revenue;
 
   const _DashboardTab({
@@ -360,13 +361,13 @@ class _QuickActionButton extends StatelessWidget {
 // ============================================================
 class _AIInsightsTab extends StatelessWidget {
   final List<Product> products;
-  final List<dynamic> orders;
+  final List<Order> orders;
 
   const _AIInsightsTab({required this.products, required this.orders});
 
   @override
   Widget build(BuildContext context) {
-    final insights = AIService.getAIInsights(products, orders.cast());
+    final insights = AIService.getAIInsights(products, orders);
     final demandForecast = AIService.getDemandForecast(products);
     final pricingSuggestions = AIService.getPricingSuggestions(products);
 
@@ -774,7 +775,7 @@ class _ProductsTab extends StatelessWidget {
 // ORDERS TAB
 // ============================================================
 class _OrdersTab extends StatelessWidget {
-  final List<dynamic> orders;
+  final List<Order> orders;
 
   const _OrdersTab({required this.orders});
 
@@ -845,7 +846,7 @@ class _OrdersTab extends StatelessWidget {
   }
 
   List<Widget> _getActionButtons(
-      BuildContext context, dynamic order, OrderProvider orderProvider) {
+      BuildContext context, Order order, OrderProvider orderProvider) {
     switch (order.status) {
       case OrderStatus.pending:
         return [

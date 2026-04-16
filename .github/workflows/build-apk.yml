@@ -29,6 +29,9 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > android/local.properties
           echo "flutter.sdk=$(which flutter | xargs dirname | xargs dirname)" >> android/local.properties
 
+      - name: Flutter doctor
+        run: flutter doctor -v 2>&1 | tee flutter-doctor.log
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -45,12 +48,32 @@ jobs:
           find build -name "*.apk" 2>/dev/null || echo "No APK files found"
           ls -la build/app/outputs/flutter-apk/ 2>/dev/null || echo "Output dir not found"
 
+      - name: Post failure diagnostics
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "## Build Failed" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -80 build-output.log >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "No build log" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+          BODY=$(tail -80 build-output.log 2>/dev/null | head -c 4000 || echo "No build log found")
+          ESCAPED=$(echo "$BODY" | python3 -c 'import sys,json; print(json.dumps(sys.stdin.read()))')
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/comments" \
+            -d "{\"body\": \"## CI Build Failure (Run #${{ github.run_number }})\\n\\n\`\`\`\\n\"${ESCAPED}\"\\n\`\`\`\"}" || true
+
       - name: Upload build log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
-          path: build-output.log
+          path: |
+            build-output.log
+            flutter-doctor.log
           retention-days: 7
           if-no-files-found: ignore
 

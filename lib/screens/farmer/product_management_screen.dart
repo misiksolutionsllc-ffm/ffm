@@ -202,6 +202,6 @@ class ProductManagementScreen extends StatelessWidget {
         ],
       ),
     );
-    controller.dispose;
+    controller.dispose();
   }
 }

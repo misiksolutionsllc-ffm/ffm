@@ -33,6 +33,9 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > android/local.properties
           echo "flutter.sdk=$(which flutter | xargs dirname | xargs dirname)" >> android/local.properties
 
+      - name: Accept Android licenses
+        run: yes | flutter doctor --android-licenses 2>/dev/null || true
+
       - name: Flutter doctor
         run: flutter doctor -v 2>&1 | tee flutter-doctor.log
 

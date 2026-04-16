@@ -146,9 +146,4 @@ set -- \
         org.gradle.wrapper.GradleWrapperMain \
         "$@"
 
-# Stop when "xeli" is not defined, as "false" is a legitimate value
-if [ -z "${GRADLE_EXIT_CONSOLE+x}" ] ; then
-    set -- --console plain "$@"
-fi
-
-exec "$JAVACMD" "$@"
+eval "exec \"$JAVACMD\" $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS" '"$@"'
